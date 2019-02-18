@@ -2,4 +2,6 @@
 
 python_version: 3
 
+executable: "{{ 'pip%s' | format('' if python_version | int < 3 else '3' )}}"
+
 pacakges: []
