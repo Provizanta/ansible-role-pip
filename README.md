@@ -29,7 +29,9 @@ Example Playbook
           vars:
             python_version: 3
             packages:
-              - basic-apps 
+              - basic-apps
+              - name: datetime 
+                state: absent
 
 License
 -------
