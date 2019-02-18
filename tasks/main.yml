@@ -11,10 +11,12 @@
     state: present
 
 - name: establish packages
-  pip:
-    name: "{{ item.name | default(item) }}"
-    version: "{{ item.version | default(omit) }}"
-    virtualenv: "{{ item.virtualenv | default(omit) }}"
-    state: "{{ item.state | default(omit) }}"
-    executable: "{{ executable }}"
+  pip: "{{ params }}"
+  vars:
+    params:
+      name: "{{ item.name | default(item) }}"
+      version: "{{ item.version | default(omit) }}"
+      virtualenv: "{{ item.virtualenv | default(omit) }}"
+      state: "{{ item.state | default(omit) }}"
+      executable: "{{ executable }}"
   with_items: "{{ packages }}" 
