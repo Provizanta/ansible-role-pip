@@ -1,11 +1,17 @@
 ---
 
 - name: establish package name
+  when: ansible_os_family == 'Debian'
   set_fact:
     package_name: "{{ 'python-pip' if python_version | int < 3 else 'python3-pip' }}"
 
+- name: establish package name
+  when: ansible_os_family == 'Alpine'
+  set_fact:
+    package_name: "{{ 'py-pip' if python_version | int < 3 else 'py3-pip' }}"
+
 - name: establish pip
-  become: yes
+  become: true
   package:
     name: "{{ package_name }}"
     state: present
@@ -19,4 +25,4 @@
       virtualenv: "{{ item.virtualenv | default(omit) }}"
       state: "{{ item.state | default(omit) }}"
       executable: "{{ executable }}"
-  with_items: "{{ packages }}" 
+  loop: "{{ packages }}"
