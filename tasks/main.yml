@@ -1,28 +1,22 @@
 ---
 
-- name: establish package name
-  when: ansible_os_family == 'Debian'
-  set_fact:
-    package_name: "{{ 'python-pip' if python_version | int < 3 else 'python3-pip' }}"
-
-- name: establish package name
-  when: ansible_os_family == 'Alpine'
-  set_fact:
-    package_name: "{{ 'py-pip' if python_version | int < 3 else 'py3-pip' }}"
-
-- name: establish pip
-  become: true
-  package:
-    name: "{{ package_name }}"
-    state: present
-
-- name: establish packages
-  pip: "{{ params }}"
+- include_tasks: "{{ item }}"
+  loop: "{{ query('first_found', params, errors='ignore') }}"
   vars:
     params:
-      name: "{{ item.name | default(item) }}"
-      version: "{{ item.version | default(omit) }}"
-      virtualenv: "{{ item.virtualenv | default(omit) }}"
-      state: "{{ item.state | default(omit) }}"
-      executable: "{{ executable }}"
+      files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+        - "{{ ansible_system }}.yml"
+      paths:
+        - '{{ role_path }}/tasks/platform/install'
+
+- name: establish packages
+  pip:
+    name: "{{ item.name | default(item) }}"
+    version: "{{ item.version | default(omit) }}"
+    virtualenv: "{{ item.virtualenv | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    executable: "{{ (python_version | int < 3) | ternary('pip','pip3') }}"
   loop: "{{ packages }}"

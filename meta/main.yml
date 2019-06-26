@@ -1,0 +1,29 @@
+---
+
+galaxy_info:
+  role_name: pip
+  author: Tibor Csoka
+  description: |
+    "Install pip and selected pip packages."
+  company: ""
+
+  license: MIT
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+    - name: Debian
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags:
+    - shell
+    - bash
+
+dependencies: []

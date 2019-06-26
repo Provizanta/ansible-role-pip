@@ -1,0 +1,7 @@
+---
+
+- name: establish package
+  become: true
+  package:
+    name: "{{ (python_version | int < 3) | ternary('python-pip','python3-pip') }}"
+    state: present

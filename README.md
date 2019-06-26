@@ -8,7 +8,7 @@ Requirements
 
 None
 
-Role variables 
+Role variables
 --------------
 
     python_version: <python version for the packager>
@@ -30,7 +30,7 @@ Example Playbook
             python_version: 3
             packages:
               - basic-apps
-              - name: datetime 
+              - name: datetime
                 state: absent
 
 License
