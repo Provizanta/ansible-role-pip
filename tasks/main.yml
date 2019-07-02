@@ -18,5 +18,5 @@
     version: "{{ item.version | default(omit) }}"
     virtualenv: "{{ item.virtualenv | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
-    executable: "{{ (python_version | int < 3) | ternary('pip','pip3') }}"
+    executable: "{{ (python_version | int < 3) | ternary('pip2','pip3') }}"
   loop: "{{ packages }}"
