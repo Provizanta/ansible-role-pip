@@ -13,9 +13,10 @@ None
 Role variables
 --------------
 
-    python_version: <python version for the packager>
-    packages: <list of python packages with an optional version to be installed>
-      - ...
+These variables are defined in [defaults/main.yml](./defaults/main.yml):
+
+    pip_version: 3
+    pip_packages: []
 
 Dependencies
 ------------
@@ -29,8 +30,8 @@ Example Playbook
       roles:
         - role: pip
           vars:
-            python_version: 3
-            packages:
+            pip_version: 3
+            pip_packages:
               - basic-apps
               - name: datetime
                 state: absent

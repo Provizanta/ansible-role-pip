@@ -5,7 +5,7 @@
   roles:
     - role: pip
       vars:
-        python_version: 3
+        pip_version: 3
 
   post_tasks:
     - name: pip should be installed

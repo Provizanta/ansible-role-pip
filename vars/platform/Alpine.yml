@@ -1,0 +1,3 @@
+---
+
+pip_executable_package: "{{ (pip_version | int < 3) | ternary('py-pip', 'py3-pip') }}"

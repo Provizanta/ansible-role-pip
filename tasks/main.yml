@@ -1,6 +1,7 @@
 ---
 
-- include_tasks: "{{ item }}"
+- name: platform dependent vars
+  include_vars: "{{ item }}"
   loop: "{{ query('first_found', params, errors='ignore') }}"
   vars:
     params:
@@ -10,7 +11,15 @@
         - "{{ ansible_os_family }}.yml"
         - "{{ ansible_system }}.yml"
       paths:
-        - '{{ role_path }}/tasks/platform/install'
+        - '{{ role_path }}/vars/platform'
+  tags: always
+
+- name: establish package
+  become: true
+  package:
+    name: "{{ pip_executable_package }}"
+    state: present
+  tags: install
 
 - name: establish packages
   pip:
@@ -21,4 +30,5 @@
     state: "{{ item.state | default(omit) }}"
     executable: "{{ item.virtualenv is undefined | ternary(item.executable | default((python_version | int < 3) | ternary('pip2','pip3')), omit) }}"
     editable: "{{ item.editable | default(omit) }}"
-  loop: "{{ packages }}"
+  loop: "{{ pip_packages }}"
+  tags: install
