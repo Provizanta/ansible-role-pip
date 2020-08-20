@@ -1,7 +1,7 @@
 Ansible role: pip
 =========
 
-[![Build Status](https://travis-ci.com/Provizanta/ansible-role-pip.svg?branch=master)](https://travis-ci.com/Provizanta/ansible-role-pip)
+![Build & Deploy](https://github.com/Provizanta/ansible-role-pip/workflows/molecule/badge.svg?branch=master)
 
 Python package manager.
 

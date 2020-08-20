@@ -3,7 +3,7 @@
 - name: Converge
   hosts: all
   roles:
-    - role: pip
+    - role: ansible-role-pip
       vars:
         pip_version: 3
 
