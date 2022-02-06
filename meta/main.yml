@@ -2,6 +2,7 @@
 
 galaxy_info:
   role_name: pip
+  namespace: provizanta
   author: Tibor Csoka
   description: |
     "Install pip and selected pip packages."
